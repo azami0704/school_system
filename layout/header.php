@@ -2,9 +2,10 @@
 <header>
     <?php
     if(isset($_SESSION['login'])){
-        echo "<h1>學生管理系統</h1>";
+        echo "<h1>後台管理中心</h1>";
+        echo "<span>目前登入身份 : {$_SESSION['login']}</span>";
     }else{
-        echo "<h1>後台管理系統</h1>";
+        echo "<h1>學生管理系統</h1>";
     }
     ?>
     <nav class="menu">
