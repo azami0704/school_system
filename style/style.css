@@ -15,7 +15,9 @@ h1 {
     font-size: 32px;
     font-weight: 700;
 }
-
+a {
+    color: var(--black);
+}
 header {
     display: flex;
     justify-content: space-between;
@@ -150,6 +152,11 @@ header {
 
 .pagination .active {
     background-color: var(--main);
+}
+
+.pagination .active a{
+    font-weight: 700;
+    color: var(--white);
 }
 
 .disable {

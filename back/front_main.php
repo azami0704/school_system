@@ -1,5 +1,6 @@
 <div class="container">
     <?php
+    //增加了JS換頁的query所以增加判斷code值不能是null
     if(isset($_GET['code']) && ($_GET['code'])!="null"){
         $code = "AND `class_code` = '{$_GET['code']}'";
         $codeForPage = "WHERE `class_code` = '{$_GET['code']}'";
@@ -115,7 +116,7 @@
             $preDisable = '';
             $nextDisable = '';
             //只有一頁
-            if($pageActive==1 && $pageActive-$Pages==0){
+            if($Pages==1){
                 $nextPage = $Pages;
                 $prevPage = $Pages;
                 $nextDisable = "class='disable'";

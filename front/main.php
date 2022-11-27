@@ -1,6 +1,7 @@
 <div class="container">
     <?php
     //查詢班級用變數
+    //增加了JS換頁的query所以增加判斷code值不能是null
     if(isset($_GET['code'])){
         $code = "AND `class_code` = '{$_GET['code']}'";
         $codeForPage = "WHERE `class_code` = '{$_GET['code']}'";
@@ -99,6 +100,7 @@
                 //更改一頁的顯示數量
                 const pageSet = document.getElementById('pageSet');
                 pageSet.addEventListener('change',function(e){
+                    //用URLSearchParams抓URL帶的參數
                     const params =new URLSearchParams(window.location.search);
                     let url = params.get('code');
                     if(url){
@@ -116,7 +118,7 @@
             $nextPage = $pageActive+1;
             $preDisable = '';
             $nextDisable = '';
-            if($pageActive==1 && $pageActive-$Pages==0){
+            if($Pages==1){
                 $nextPage = $Pages;
                 $prevPage = $Pages;
                 $nextDisable = "class='disable'";
@@ -124,7 +126,7 @@
             }else if($pageActive==1){
                 $prevPage = 1;
                 $preDisable = "class='disable'";
-            }else if($pageActive-$Pages==0){
+            }else if($pageActive==$Pages){
                 $nextPage = $Pages;
                 $nextDisable = "class='disable'";
             }

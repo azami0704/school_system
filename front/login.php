@@ -28,6 +28,7 @@ if(isset($_SESSION['login_try'])){
     </tr>
 <?php
     }else if(!isset($_SESSION['last_try_time'])){
+        //測試要用所以先寫10秒,要上正式的話記得改回來
         $_SESSION['last_try_time']=strtotime("+{$lockTime} seconds");
         $time = date("Y-m-d H:i:s",($_SESSION['last_try_time']));
         echo "登入錯誤{$tryCount}次，請於{$time}後再嘗試登入";

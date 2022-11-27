@@ -1,10 +1,8 @@
 <?php
 include "../db/pdo.php";
 
-
 $acc = $_POST['acc'];
 $pw = $_POST['pw'];
-
 
 $sql ="SELECT `account`, `password` FROM `users` WHERE `account` = '$acc'";
 $check = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
@@ -20,5 +18,5 @@ if($check['account']==$acc&&$check['password']==$pw){
     }
     header("location:../index.php?do=login");
 }
-// header("location:../admin_center.php?status=$status")
+//登入失敗狀態以SESSION判斷故不給status
 ?>
