@@ -15,14 +15,13 @@
     $pageSetting = $_GET['pageSet']??10;
     $PageRangeArr = [10,20,50,100];
     $pageRows = $pageSetting;
+    $pageEnd = $pageRows;
     if(isset($_GET['page'])){
         $pageActive=$_GET['page'];
         $pageStart = ($pageActive-1)*$pageRows;
-        $pageEnd = $pageRows;
     }else{
         $pageActive=1;
         $pageStart=$pageActive-1;
-        $pageEnd=$pageRows;
     }
     //全部資料
     $sql = "SELECT `students`.`id` AS 'id', `students`.`school_num` AS 'school_num', `students`.`name` AS 'name', `birthday`,  `addr`, `parents`, `tel`, `dept`.`name` AS '科別', CONCAT(`graduate_school`.`county`,`graduate_school`.`name`)AS '畢業國中',`class_code` FROM `students`,`graduate_school`,`class_student`,`dept` WHERE `students`.`graduate_at`=`graduate_school`.`id` AND `students`.`school_num`=`class_student`.`school_num` AND  `students`.`dept`=`dept`.`id` $code LIMIT $pageStart,$pageEnd";
