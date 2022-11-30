@@ -15,7 +15,6 @@
     $pageSetting = $_GET['pageSet']??10;
     $PageRangeArr = [10,20,50,100];
     $pageRows = $pageSetting;
-    $pageEnd = $pageRows;
     if(isset($_GET['page'])){
         $pageActive=$_GET['page'];
         $pageStart = ($pageActive-1)*$pageRows;
@@ -24,7 +23,7 @@
         $pageStart=$pageActive-1;
     }
     //全部資料
-    $sql = "SELECT `students`.`id` AS 'id', `students`.`school_num` AS 'school_num', `students`.`name` AS 'name', `birthday`,  `addr`, `parents`, `tel`, `dept`.`name` AS '科別', CONCAT(`graduate_school`.`county`,`graduate_school`.`name`)AS '畢業國中',`class_code` FROM `students`,`graduate_school`,`class_student`,`dept` WHERE `students`.`graduate_at`=`graduate_school`.`id` AND `students`.`school_num`=`class_student`.`school_num` AND  `students`.`dept`=`dept`.`id` $code LIMIT $pageStart,$pageEnd";
+    $sql = "SELECT `students`.`id` AS 'id', `students`.`school_num` AS 'school_num', `students`.`name` AS 'name', `birthday`,  `addr`, `parents`, `tel`, `dept`.`name` AS '科別', CONCAT(`graduate_school`.`county`,`graduate_school`.`name`)AS '畢業國中',`class_code` FROM `students`,`graduate_school`,`class_student`,`dept` WHERE `students`.`graduate_at`=`graduate_school`.`id` AND `students`.`school_num`=`class_student`.`school_num` AND  `students`.`dept`=`dept`.`id` $code LIMIT $pageStart,$pageSetting";
     $sqlClassList = "SELECT`code`, `name`FROM `classes`";
     $sqlPage = "SELECT COUNT(*) FROM `class_student` $codeForPage";
     $rows = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
@@ -35,11 +34,12 @@
     ?>
         <?php
         //班級列表
+        $do =$_GET['do'];
         echo "<ul class='class-list'>";
-        echo "<a href='?do=main' class='btn btn-main'>全部</a>";
+        echo "<a href='?do={$do}' class='btn btn-main'>全部</a>";
         foreach($rowsClassList as $row){
             echo '<li>';
-            echo "<a href='?code={$row['code']}' class='btn btn-main'>{$row['name']}</a>";
+            echo "<a href='?do={$do}&code={$row['code']}' class='btn btn-main'>{$row['name']}</a>";
             echo '</li>';
         }
         echo '</ul>';
@@ -138,16 +138,16 @@
             if($Pages>$pagiRange){
                 if($pageActive > 5 && $Pages-$pageActive>4){
                     $pagiStart=$pageActive-4;
-                    $pagiFirstPage = "<li><a href='?pageSet={$pageSetting}&page=1'>1</a></li>...";
-                    $pagiLastPage = "...<li><a href='?pageSet={$pageSetting}&page={$Pages}'>{$Pages}</a></li>";
+                    $pagiFirstPage = "<li><a href='?do={$do}&pageSet={$pageSetting}&page=1'>1</a></li>...";
+                    $pagiLastPage = "...<li><a href='?do={$do}&pageSet={$pageSetting}&page={$Pages}'>{$Pages}</a></li>";
                 }else if($pageActive > 5){
                     $pagiStart=$Pages-($pagiRange-2);
-                    $pagiFirstPage = "<li><a href='?pageSet={$pageSetting}&page=1'>1</a></li>...";
+                    $pagiFirstPage = "<li><a href='?do={$do}&pageSet={$pageSetting}&page=1'>1</a></li>...";
                     $pagiLastPage = '';
                 }else{
                     $pagiStart=1;
                     $pagiFirstPage = "";
-                    $pagiLastPage = "...<li><a href='?pageSet={$pageSetting}&page={$Pages}'>{$Pages}</a></li>";
+                    $pagiLastPage = "...<li><a href='?do={$do}&pageSet={$pageSetting}&page={$Pages}'>{$Pages}</a></li>";
                 }
                 $pageEnd = $pagiStart+($pagiRange-2);
             }else{
@@ -157,17 +157,17 @@
                 $pagiLastPage = '';
             }
             //頁數輸出
-            echo "<li $preDisable><a href='?pageSet={$pageSetting}&page={$prevPage}{$codeForPageChange}'><</a></li>";
+            echo "<li $preDisable><a href='?do={$do}&pageSet={$pageSetting}&page={$prevPage}{$codeForPageChange}'><</a></li>";
             echo $pagiFirstPage;
             for($i=$pagiStart;$i<=$pageEnd;$i++){
                 if($i==$pageActive){
-                    echo "<li class='active'><a href='?page={$i}{$codeForPageChange}'>{$i}</a></li>";
+                    echo "<li class='active'><a href='?do={$do}&page={$i}{$codeForPageChange}'>{$i}</a></li>";
                 }else{
-                    echo "<li><a href='?pageSet={$pageSetting}&page={$i}{$codeForPageChange}'>{$i}</a></li>";
+                    echo "<li><a href='?do={$do}&pageSet={$pageSetting}&page={$i}{$codeForPageChange}'>{$i}</a></li>";
                 }
             }
             echo $pagiLastPage;
-            echo "<li $nextDisable><a href='?pageSet={$pageSetting}&page={$nextPage}{$codeForPageChange}'>></a></li>";
+            echo "<li $nextDisable><a href='?do={$do}&pageSet={$pageSetting}&page={$nextPage}{$codeForPageChange}'>></a></li>";
             //頁數輸出 END
             ?>
         </ul>

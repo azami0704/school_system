@@ -16,12 +16,12 @@ include_once "./db/pdo.php";
     <?php
     include "./layout/header.php";
     include "./layout/status.php";
-    $do = $_GET['do']??'main';
+    $do = $_GET['do']??'news';
     $file = "./back/{$do}.php";
     if(file_exists($file)){
         include $file;
     }else{
-        include "./back/main.php";
+        include "./back/news.php";
     }
     ?>
 

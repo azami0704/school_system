@@ -9,6 +9,7 @@ $check = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
 print_r($check);
 if($check['account']==$acc&&$check['password']==$pw){
     $_SESSION['login']=$acc;
+    unset($_SESSION['login_try']);
     header("location:../admin_center.php?status=login_success");
 }else{
     if(!isset($_SESSION['login_try'])){

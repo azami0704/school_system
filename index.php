@@ -1,9 +1,9 @@
 <?php
 include_once "./db/pdo.php";
 //登入狀態下直接到非會員首頁有bug,加判斷登入狀態下去會員的前台頁面
-if(isset($_SESSION['login'])){
-    header("location:admin_center.php?do=front_main");
-}
+// if(isset($_SESSION['login'])){
+//     header("location:admin_center.php?do=front_main");
+// }
 ?>
 
 <!DOCTYPE html>
@@ -20,12 +20,12 @@ if(isset($_SESSION['login'])){
     <?php
     include "./layout/header.php";
     include "./layout/status.php";
-    $do = $_GET['do']??'main';
+    $do = $_GET['do']??'news';
     $file = "./front/{$do}.php";
     if(file_exists($file)){
         include $file;
     }else{
-        include "./front/index_main.php";
+        include "./front/news.php";
     }
     ?>
 

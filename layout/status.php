@@ -36,6 +36,24 @@ if(isset($_GET['status'])){
         case 'auth_error':
             echo "<p class='msg msg-fail'>權限有誤，請先登入</p>";
         break;
+        case 'add_news_success':
+            echo "<p class='msg msg-success'>新增新聞成功</p>";
+        break;
+        case 'add_news_fail':
+            echo "<p class='msg msg-fail'>新增新聞失敗</p>";
+        break;
+        case 'edit_news_success':
+            echo "<p class='msg msg-success'>新聞編輯成功</p>";
+        break;
+        case 'edit_news_fail':
+            echo "<p class='msg msg-fail'>新聞編輯失敗</p>";
+        break;
+        case 'del_news_success':
+            echo "<p class='msg msg-success'>新聞刪除成功</p>";
+        break;
+        case 'del_news_fail':
+            echo "<p class='msg msg-fail'>新聞刪除失敗</p>";
+        break;
     }
 }
 
